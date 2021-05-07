@@ -62,8 +62,9 @@ def check_calendar(request_header, vaccine_type, minimum_slots, min_age_booking,
 	        elif resp.status_code == 200:
 	            resp = resp.json()
 	            if (len(resp['sessions']) > 0):    
+	                beep(WARNING_BEEP_DURATION[0], WARNING_BEEP_DURATION[1])
 	                print(
-	                    f"Centers available in pincode 421002 from {tomorrow} as of {today.strftime('%Y-%m-%d %H:%M:%S')}: {len(resp['sessions'])}")
+	                    f"Centers available in pincode {pincode} from {tomorrow} as of {today.strftime('%Y-%m-%d %H:%M:%S')}: {len(resp['sessions'])}")
 	                if len(resp['sessions']) >= 0:
 	                    for session in resp['sessions']:
 	                        if (session['available_capacity'] >= minimum_slots) and (session['min_age_limit'] <= min_age_booking):
@@ -112,6 +113,7 @@ def book_appointment(request_header, details):
             return False
 
         elif resp.status_code == 200:
+            beep(WARNING_BEEP_DURATION[0], WARNING_BEEP_DURATION[1])
             beep(WARNING_BEEP_DURATION[0], WARNING_BEEP_DURATION[1])
             print('##############    BOOKED!  ##############')
             os.system("pause")
