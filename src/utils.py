@@ -338,30 +338,29 @@ def generate_token_OTP(mobile, request_header):
     """
     This function generate OTP and returns a new token
     """
-    # data = {"mobile": mobile,
-    #         "secret": "U2FsdGVkX1+b2/jGHLoV5kD4lpHdQ/CI7p3TnigA+6ukck6gSGrAR9aAuWeN/Nod9RrY4RaREfPITQfnqgCI6Q=="}
-    # print(f"Requesting OTP with mobile number {mobile}..")
-    # txnId = requests.post(url='https://cdn-api.co-vin.in/api/v2/auth/generateMobileOTP', json=data, headers=request_header)
+    data = {"mobile": mobile,
+            "secret": "U2FsdGVkX1+b2/jGHLoV5kD4lpHdQ/CI7p3TnigA+6ukck6gSGrAR9aAuWeN/Nod9RrY4RaREfPITQfnqgCI6Q=="}
+    print(f"Requesting OTP with mobile number {mobile}..")
+    txnId = requests.post(url='https://cdn-api.co-vin.in/api/v2/auth/generateMobileOTP', json=data, headers=request_header)
 
-    # if txnId.status_code == 200:
-    #     txnId = txnId.json()['txnId']
-    # else:
-    #     print('Unable to Create OTP')
-    #     print(txnId.text)
-    #     os.system("pause")
+    if txnId.status_code == 200:
+        txnId = txnId.json()['txnId']
+    else:
+        print('Unable to Create OTP')
+        print(txnId.text)
+        os.system("pause")
 
-    # OTP = input("Enter OTP: ")
-    # data = {"otp": sha256(str(OTP).encode('utf-8')).hexdigest(), "txnId": txnId}
-    # print(f"Validating OTP..")
+    OTP = input("Enter OTP: ")
+    data = {"otp": sha256(str(OTP).encode('utf-8')).hexdigest(), "txnId": txnId}
+    print(f"Validating OTP..")
 
-    # token = requests.post(url='https://cdn-api.co-vin.in/api/v2/auth/validateMobileOtp', json=data, headers=request_header)
-    # if token.status_code == 200:
-    #     token = token.json()['token']
-    # else:
-    #     print('Unable to Validate OTP')
-    #     print(token.text)
-    #     os.system("pause")
+    token = requests.post(url='https://cdn-api.co-vin.in/api/v2/auth/validateMobileOtp', json=data, headers=request_header)
+    if token.status_code == 200:
+        token = token.json()['token']
+    else:
+        print('Unable to Validate OTP')
+        print(token.text)
+        os.system("pause")
 
-    # print(f'Token Generated: {token}')
-    # return token
-    return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJlNGY1NTQ2YS05ZDMwLTRiNjUtOWNiYS0wOWI3ZjFjYWE2M2MiLCJ1c2VyX2lkIjoiZTRmNTU0NmEtOWQzMC00YjY1LTljYmEtMDliN2YxY2FhNjNjIiwidXNlcl90eXBlIjoiQkVORUZJQ0lBUlkiLCJtb2JpbGVfbnVtYmVyIjo5MzcyMTExNTU1LCJiZW5lZmljaWFyeV9yZWZlcmVuY2VfaWQiOjUzOTM4OTkxMDM5MjcwLCJ1YSI6Ik1vemlsbGEvNS4wIChNYWNpbnRvc2g7IEludGVsIE1hYyBPUyBYIDEwXzEwXzEpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8zOS4wLjIxNzEuOTUgU2FmYXJpLzUzNy4zNiIsImRhdGVfbW9kaWZpZWQiOiIyMDIxLTA1LTA2VDEwOjU2OjQzLjAwOFoiLCJpYXQiOjE2MjAyOTg2MDMsImV4cCI6MTYyMDI5OTUwM30.fLN4MYxUUGKimdzkQGdWTR_bTGU60FS0tUyhLKh7AgI"
+    print(f'Token Generated: {token}')
+    return token
