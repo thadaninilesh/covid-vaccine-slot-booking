@@ -122,6 +122,7 @@ def book_appointment(request_header, details):
 
         elif resp.status_code == 200:
             beep(WARNING_BEEP_DURATION[0], WARNING_BEEP_DURATION[1])
+            beep(WARNING_BEEP_DURATION[0], WARNING_BEEP_DURATION[1])
             print('##############    BOOKED!  ##############')
             os.system("pause")
 
@@ -160,6 +161,7 @@ def check_and_book(request_header, beneficiary_dtls, district_dtls, minimum_slot
 
         tmp_options = copy.deepcopy(options)
         if len(tmp_options) > 0:
+            beep(WARNING_BEEP_DURATION[0], WARNING_BEEP_DURATION[1])
             cleaned_options_for_display = []
             for item in tmp_options:
                 item.pop('session_id', None)
